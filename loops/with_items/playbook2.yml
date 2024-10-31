@@ -1,0 +1,10 @@
+---
+- name: Installing/Uninstalling multiple softwares
+  hosts: all
+  tasks:
+    - name: uninstalling multiple s/w
+      apt:
+        name: ["tree", "git", "maven"]
+        state: absent
+        update_cache: no
+...

@@ -1,0 +1,25 @@
+---
+- name: Configuring apache
+  hosts: all
+  tasks:
+   - name: Install tomcat9
+     apt:
+      name: apache2
+      state: present
+      update_cache: yes
+   - name: Edit the idnex.html file
+     copy:
+      content: "Devops Engineer"
+      dest: /var/www/html/index.html
+   - name: Restart apache2
+     service:
+      name: apache2
+      state: restarted
+   - name: Check apache2 url response
+     uri:
+      url: "{{item}}"
+      status_code: 200
+     with_items:
+      - http://172.31.55.129
+      - http://172.31.48.61
+...
