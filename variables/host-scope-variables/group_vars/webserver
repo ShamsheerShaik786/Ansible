@@ -1,0 +1,5 @@
+---
+a: firewalld
+b: present
+c: no
+...
