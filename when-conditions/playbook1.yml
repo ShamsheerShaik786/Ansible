@@ -1,0 +1,13 @@
+---
+- name: Implementing when conditions
+  hosts: all
+  vars:
+    - a: 10
+  tasks:
+    - name: uninstalling tomcat10
+      apt:
+        name: tomcat10
+        state: absent
+        update_cache: no
+      when: a == 10
+...

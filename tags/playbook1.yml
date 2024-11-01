@@ -1,0 +1,28 @@
+---
+- name: Implementing tags
+  hosts: all
+  tags: playbooktag
+  tasks:
+    - name: installing softwares
+      apt:
+        name: tree
+        state: present
+        update_cache: yes
+      tags: 
+        - tree_installation
+        - never
+    - name: create user
+      user:
+        name: ramu
+        password: ram
+        uid: 4499
+        home: /home/ubuntu
+        shell: /bin/bash
+      tags: 
+        - user_creation
+        - always
+    - name: copy passwd file
+      copy:
+        src: /etc/passwd
+        dest: /tmp
+...
