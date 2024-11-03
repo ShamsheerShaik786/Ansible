@@ -10,7 +10,7 @@
 
 ![Screenshot (90)](https://github.com/user-attachments/assets/5902d47e-6bd2-4935-b8c7-e44ae61c2182)
 
-**Playbook executing seond tinme it's skipping handlers section**
+**Playbook executing second time it's skipping handlers section**
 
 ![Screenshot (91)](https://github.com/user-attachments/assets/a5be0635-1f08-46bf-b752-e6d3ffa654b1)
 
