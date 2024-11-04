@@ -1,0 +1,11 @@
+---
+- name: Check url response of tomcat
+  uri:
+   url: "{{item.a}}"
+   status_code: "{{item.b}}"
+  with_items:
+          # - {a: http://172.31.1.74:9090,b: 200}
+          #   - {a: http://172.31.15.99:9090,b: 200}
+   - {a: "{{l}}",b: "{{m}}"}
+   - {a: "{{n}}",b: "{{m}}"}
+...

@@ -1,0 +1,6 @@
+---
+- name: edit the index.html file
+  copy:
+    content: "Hello Devops Bro..!"
+    dest: /var/www/html/index.html
+...

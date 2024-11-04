@@ -1,0 +1,17 @@
+---
+a: tomcat9
+b: present
+c: yes
+d: tomcat9-admin
+e: no
+f: tomcat-users.xml
+g: /etc/tomcat9
+h: 8080
+i: 9090
+j: /etc/tomcat9/server.xml
+k: restarted
+l: http://172.31.1.74:9090
+m: 200
+n: http://172.31.15.99:9090
+...
+

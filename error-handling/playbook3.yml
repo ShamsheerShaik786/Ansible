@@ -1,0 +1,22 @@
+
+---
+- name: Error handling or Exception Handling
+  hosts: all
+  tasks:
+   - block:
+      - name: Install apach2
+        apt:
+         name: apache2
+         state: present
+         update_cache: yes
+     rescue:
+      - name: Install httpd
+        yum:
+         name: httpd
+         state: present
+         update_cache: yes
+     always:
+      - name: Display output
+        debug:
+         msg: apache/httpd installed successfully
+...

@@ -1,0 +1,18 @@
+---
+- name: installing git on ubuntu servers
+  hosts: ubuntu
+  tasks:
+    - name: installing git using apt module
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+- name: installing git on redhat servers
+  hosts: RedHat
+  tasks:
+    - name: installing git using yum
+      yum:
+        name: git
+        state: present
+        update_cache: yes
+...

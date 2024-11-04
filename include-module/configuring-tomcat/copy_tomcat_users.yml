@@ -1,0 +1,6 @@
+---
+- name: copy the tomcat-users.xml file
+  copy:
+    src: "{{g}}"
+    dest: "{{h}}"
+...

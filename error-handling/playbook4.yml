@@ -1,0 +1,39 @@
+---
+- name: install jenkins and required softwares
+  hosts: jenkinsserver
+  tasks:
+    - name: installing required softwares
+      apt:
+        name: "{{item.a}}"
+        state: present
+        update_cache: "{{item.b}}"
+      with_items:
+        - { a: openjdk-17-jdk, b: yes}
+        - { a: git, b: no}
+        - { a: maven, b: no}
+    - name: Downloading jenkins.war
+      get_url:
+        url: https://get.jenkins.io/war-stable/2.479.1/jenkins.war"
+        dest: /home/ubuntu
+- name: configuring tomcat on QA and ProdServers
+  hosts: servers
+  tasks:
+    - name: installing tomcat10 and tomcat10-admin
+      apt:
+        name: "{{item.a}}"
+        state: present
+        update_cache: "{{item.b}}"
+      with_items:
+        - { a:tomcat10, b: yes}
+        - { a:tomcat10-admin, b:no}
+    - name: copy the tomcat-users.xml
+      copy:
+        src: tomcat-users.xml
+        dest: /etc/tomcat10
+      notify: restart tomcat10
+  handlers:
+    - name: restart tomcat10
+      service:
+        name: tomcat10
+        state: restarted  
+
