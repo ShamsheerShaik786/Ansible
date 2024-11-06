@@ -10,6 +10,7 @@
 9. Open the **authrosized_key** and paste the **public_key** of controller
 10. Restart the **service sudo service ssh restart**
 11. Repeat the steps 7 to 10 for the remaining servers
+
 **Installing Ansible**
 1. Update the apt repository
      **sudo apt-get update**
