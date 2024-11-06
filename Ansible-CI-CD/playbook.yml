@@ -1,0 +1,73 @@
+---
+- name: Install required s/w's on DevServer
+  hosts: DevServer
+  tasks:
+   - name: Install required s/w's
+     apt:
+      name: "{{item.a}}"
+      state: present
+      update_cache: "{{item.b}}"
+     with_items:
+      - {a: git,b: yes}
+      - {a: openjdk-11-jdk,b: no}
+      - {a: maven,b: no}
+
+- name: Install required s/w's on QAServer
+  hosts: QAServer
+  tasks:
+   - name: Install required s/w's
+     apt:
+      name: "{{item.a}}"
+      state: present
+      update_cache: "{{item.b}}"
+     with_items:
+      - {a: tomcat10,b: yes}
+      - {a: tomcat10-admin,b: no}
+
+- name: Install required s/w's on ProdServer
+  hosts: ProdServer
+  tasks:
+   - name: Install required s/w's
+     apt:
+      name: "{{item.a}}"
+      state: present
+      update_cache: "{{item.b}}"
+     with_items:
+      - {a: tomcat10,b: yes}
+      - {a: tomcat10-admin,b: no}
+
+- name: Continuous Download and Build
+  hosts: DevServer
+  tasks:
+   - name: Download the code created by developers
+     git:
+      repo: https://github.com/ShamsheerShaik786/maven-project.git
+      dest: devolopersgithub
+   - name: create ArtifactId
+     shell: cd devolopersgithub;mvn package
+   - name: Fetch the artifact from devserver to controller
+     fetch:
+      src: devolopersgithub/webapp/target/webapp.war
+      dest: /tmp
+
+- name: Continuous Deployment and Testing
+  hosts: QAServer
+  tasks:
+   - name: Deploy artifact into tomcat on QaServer
+     copy:
+      src: /tmp/172.31.32.233/devolopersgithub/webapp/target/webapp.war
+      dest: /var/lib/tomcat10/webapps/testingapp.war
+   - name: Downlaod the selenium test scripts
+     git:
+      repo: https://github.com/ShamsheerShaik786/testing.git
+      dest: testersgithub
+   - name: Execute the selenium test scripts
+     shell: java -jar testersgithub/testing.jar
+
+- name: Continuous Delivery
+  hosts: ProdServer
+  tasks:
+   - name: Deploy the artifact into prodserver tomcat
+     copy:
+      src: /tmp/172.31.32.233/devolopersgithub/webapp/target/webapp.war
+      dest: /var/lib/tomcat10/webapps/prodapp.war
