@@ -1,0 +1,10 @@
+---
+- name: create multiple ngnix containers for load balancing
+  hosts: all
+  tasks:
+    - name: create 5 nginx containers for all servers
+      docker_container:
+        name: "container{{item}}"
+        image: nginx
+      with_sequence: count=5
+...

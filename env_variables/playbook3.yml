@@ -1,0 +1,39 @@
+---
+- name: configuring apache2/httpd based on linux flavours
+  hosts: all
+  tasks:
+    - name: installing apache2
+      apt:
+        name: apache2
+        state: present
+        update_cache: no
+      when: ansible_distribution == "Ubuntu"
+    - name: Installing httpd on RedHat Linux Servers
+      yum:
+        name: httpd
+        state: present
+        update_cache: no
+      when: ansible_distribution == "RedHat"
+    - name: Editing the index.html file
+      copy:
+        content: "Devops Engineer"
+        dest: /var/www/html/index.html
+    - name: Restarting the ubuntu servers
+      service:
+        name: apache2
+        state: restarted
+      when: ansible_distribution == "Ubuntu"
+    - name: Restarting the RedHat servers
+      service:
+        name: httpd
+        state: restarted
+      when: ansible_distribution == "RedHat"
+    - name: check the url response on all servers
+      uri:
+        url: "{{item}}"
+        status_code: 200
+      with_items:
+        - http://172.31.36.16:80
+        - http://172.31.38.142:80
+        - http://172.31.27.39:80
+...

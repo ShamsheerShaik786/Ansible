@@ -1,0 +1,17 @@
+---
+- name: Installation of Git in all linux flavours
+  hosts: all
+  tasks:
+    - name: Installing git on Ubuntu Linux
+      apt:
+        name: git
+        state: present
+        update_cache: no
+      when: ansible_distribution == "Ubuntu"
+    - name: Installing git on RedHat Linux
+      yum:
+        name: git
+        state: present
+        update_cache: no
+      when: ansible_distribution == "RedHat"
+...

@@ -1,0 +1,10 @@
+---
+- name: working on docker
+  hosts: all
+  tasks:
+    - name: download the docker into the all servers
+      shell: "{{item}}"
+      with_items:
+        - curl -fsSL https://get.docker.com -o install-docker.sh
+        - sudo sh install-docker.sh
+...
