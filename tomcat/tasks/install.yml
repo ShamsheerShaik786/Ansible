@@ -1,0 +1,10 @@
+---
+- name: installing tomcat
+  apt:
+    name: "{{item.a}}"
+    state: "{{item.b}}"
+    update_cache: "{{item.c}}"
+  with_items:
+    - { a: "{{pkg1}}", b: "{{state1}}", c: "{{cache1}}" }
+    - { a: "{{pkg2}}", b: "{{state2}}", c: "{{cache2}}" }
+...

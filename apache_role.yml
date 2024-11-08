@@ -1,0 +1,6 @@
+---
+- name: Implementing roles for apache2
+  hosts: all
+  roles:
+    - apache
+...

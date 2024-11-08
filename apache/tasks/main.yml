@@ -1,0 +1,9 @@
+---
+# tasks file for apache
+- name: calling child playbooks
+  include_tasks: "{{item}}"
+  with_items:
+    - install.yml
+    - configure.yml
+    - check_url_response.yml
+...

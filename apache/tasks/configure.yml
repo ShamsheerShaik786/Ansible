@@ -1,0 +1,7 @@
+---
+- name: edit the index.html file
+  copy:
+    src: index.html
+    dest: /var/www/html/index.html
+  notify: Restart apache2
+...

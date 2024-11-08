@@ -1,0 +1,7 @@
+---
+- name: Restart tomcat10
+  service:
+   name: "{{pkg1}}"
+   state: "{{state3}}"
+...
+
